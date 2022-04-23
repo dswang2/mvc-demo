@@ -1,0 +1,14 @@
+#app3{
+    caret-color: transparent;
+}
+#app3 > #book{
+    border: 1px solid red;
+    width: 100px;
+    height: 180px;
+    margin: 10px 20px;
+    transition: all 1s linear;
+}
+
+#app3 > #book.active{
+    transform: translateX(100px);
+}

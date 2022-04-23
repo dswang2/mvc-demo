@@ -1,0 +1,24 @@
+#app4{
+    caret-color: transparent;
+}
+
+@keyframes colorTrans {
+    0%{
+        background-color: blue;
+    }
+    100%{
+        background-color: red;
+    }
+}
+
+#app4 > #circle{
+    margin: 10px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+
+#app4 > #circle.active{
+    animation: colorTrans 2s infinite alternate forwards;
+}

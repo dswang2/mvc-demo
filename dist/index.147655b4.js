@@ -458,8 +458,9 @@ function hmrAcceptRun(bundle, id) {
 var _resetCss = require("./reset.css");
 var _gloableCss = require("./gloable.css");
 var _app1Js = require("./app1.js");
+var _app2Js = require("./app2.js");
 
-},{"./reset.css":"8lAmy","./gloable.css":"jmNI0","./app1.js":"hD5rx"}],"8lAmy":[function() {},{}],"jmNI0":[function() {},{}],"hD5rx":[function(require,module,exports) {
+},{"./reset.css":"8lAmy","./gloable.css":"jmNI0","./app1.js":"hD5rx","./app2.js":"ecYzc"}],"8lAmy":[function() {},{}],"jmNI0":[function() {},{}],"hD5rx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _app1Css = require("./app1.css");
 var _jquery = require("jquery");
@@ -7334,6 +7335,20 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"vx6G2":[function() {},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
+},{}],"vx6G2":[function() {},{}],"ecYzc":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+var _jquery = require("jquery");
+var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+var _app2Css = require("./app2.css");
+const $tabBar = _jqueryDefault.default("#app2 .tab-bar");
+const $tabContent = _jqueryDefault.default("#app2 .tab-content");
+$tabBar.on("click", "li", (e)=>{
+    const $li = _jqueryDefault.default(e.currentTarget);
+    $li.addClass("selected").siblings().removeClass("selected");
+    const index = $li.index();
+    $tabContent.children().eq(index).addClass("active").siblings().removeClass("active");
+});
+
+},{"jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx","./app2.css":"8qkpE"}],"8qkpE":[function() {},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
 
 //# sourceMappingURL=index.147655b4.js.map

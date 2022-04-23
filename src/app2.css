@@ -1,0 +1,27 @@
+#app2{
+    caret-color: transparent; /* caret 插入符号，光标 */
+}
+#app2 .tab-bar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#app2 .tab-bar > li{
+    border: 1px solid blue;
+    width: 50%;
+}
+#app2 .tab-bar > li.selected{
+    background-color: bisque;
+    color: white;
+}
+#app2 .tab-content{
+    background-color: honeydew;
+    height: 100%;
+}
+
+#app2 .tab-content > li{
+    display: none;
+}
+#app2 .tab-content > li.active{
+    display: block;
+}

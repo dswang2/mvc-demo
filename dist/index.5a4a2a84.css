@@ -47,6 +47,7 @@ body > .page > section {
     border: 1px solid gainsboro;
     width: 50vw;
     height: 50vh;
+    overflow: hidden;
 }
 #app1 > .wrapper{
     display: flex;
@@ -62,4 +63,32 @@ body > .page > section {
 #app1 > .wrapper > .output{
     margin-right: 24px;
 }
+#app2{
+    caret-color: transparent; /* caret 插入符号，光标 */
+}
+#app2 .tab-bar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#app2 .tab-bar > li{
+    border: 1px solid blue;
+    width: 50%;
+}
+#app2 .tab-bar > li.selected{
+    background-color: bisque;
+    color: white;
+}
+#app2 .tab-content{
+    background-color: honeydew;
+    height: 100%;
+}
+
+#app2 .tab-content > li{
+    display: none;
+}
+#app2 .tab-content > li.active{
+    display: block;
+}
+
 /*# sourceMappingURL=index.5a4a2a84.css.map */

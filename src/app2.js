@@ -15,3 +15,5 @@ $tabBar.on("click", "li", (e) => {
         .siblings()
         .removeClass("active");
 })
+
+$tabBar.children().eq(0).trigger("click");

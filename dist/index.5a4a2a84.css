@@ -127,7 +127,7 @@ body > .page > section {
 }
 
 #app4 > #circle.active{
-    animation: colorTrans 10s infinite alternate forwards;
+    animation: colorTrans 2s infinite alternate forwards;
 }
 
 /*# sourceMappingURL=index.5a4a2a84.css.map */

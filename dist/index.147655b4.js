@@ -455,13 +455,42 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"i87aF":[function(require,module,exports) {
+var _resetCss = require("./reset.css");
+var _gloableCss = require("./gloable.css");
+var _app1Js = require("./app1.js");
+
+},{"./reset.css":"8lAmy","./gloable.css":"jmNI0","./app1.js":"hD5rx"}],"8lAmy":[function() {},{}],"jmNI0":[function() {},{}],"hD5rx":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _styleCss = require("./style.css");
+var _app1Css = require("./app1.css");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-console.log("hello");
+const $btnCal = _jqueryDefault.default("#btnCal");
+const $output = _jqueryDefault.default("#number");
+$output.text(localStorage.getItem("n") || 100);
+// 事件捕获
+$btnCal.on("click", (e)=>{
+    console.log(e.currentTarget); // 父控件
+    console.log(e.target); // 子控件，具体点击的子控件
+    let n = parseInt($output.text());
+    switch(e.target.id){
+        case "add1":
+            n += 1;
+            break;
+        case "minus1":
+            n -= 1;
+            break;
+        case "mul2":
+            n *= 2;
+            break;
+        case "divide2":
+            n /= 2;
+            break;
+    }
+    $output.text(n);
+    localStorage.setItem("n", $output.text());
+});
 
-},{"./style.css":"kaLKy","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"kaLKy":[function() {},{}],"igaHu":[function(require,module,exports) {
+},{"jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx","./app1.css":"vx6G2"}],"igaHu":[function(require,module,exports) {
 /*!
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
@@ -7305,6 +7334,6 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
+},{}],"vx6G2":[function() {},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
 
 //# sourceMappingURL=index.147655b4.js.map

@@ -1,0 +1,65 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: normal;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+ul,
+ol {
+    list-style: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+body {
+    overflow: hidden; /*隐藏滚动条*/
+}
+
+body > .page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+body > .page > section {
+    border: 1px solid gainsboro;
+    width: 50vw;
+    height: 50vh;
+}
+#app1 > .wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 24px;
+}
+
+#app1 > .wrapper > .actions > button{
+    padding: 2px 8px;
+}
+
+#app1 > .wrapper > .output{
+    margin-right: 24px;
+}
+/*# sourceMappingURL=index.5a4a2a84.css.map */

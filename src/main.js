@@ -1,4 +1,4 @@
-import "./style.css"
-import $ from "jquery"
+import "./reset.css"
+import "./gloable.css"
 
-console.log("hello");
+import "./app1.js"

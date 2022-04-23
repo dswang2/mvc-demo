@@ -1,0 +1,14 @@
+#app1 > .wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 24px;
+}
+
+#app1 > .wrapper > .actions > button{
+    padding: 2px 8px;
+}
+
+#app1 > .wrapper > .output{
+    margin-right: 24px;
+}

@@ -25,14 +25,13 @@ const v = {
     </section>`,
     init(container){
       v.el = $(container);
-      v.render();
     },
-    render() {
+    render(n) {
         // 子元素数
         if(v.el.children.length !== 0){
             v.el.empty(); // 清空
         }
-        $(v.html.replace("{{n}}",m.data.n)).appendTo($(v.el));
+        $(v.html.replace("{{n}}", n)).appendTo($(v.el));
     }
 }
 // 其他的都放到 c
@@ -40,30 +39,34 @@ const c = {
     ui: undefined, // 不能一开始就初始化ui，因为v.render()没执行之前，是找不到这些元素的
     init(container) {
         v.init(container);
-        c.bindEvents();
+        v.render(m.data.n);
+        c.autoBindEvents();
     },
-    bindEvents() {
-        v.el.on("click", "#add1", (e) => {
-            m.data.n += 1;
-            v.render();
-            localStorage.setItem("n",m.data.n);
-        })
-        v.el.on("click", "#minus1", (e) => {
-            m.data.n -= 1;
-            v.render();
-            localStorage.setItem("n",m.data.n);
-        })
-        v.el.on("click", "#mul2", (e) => {
-            m.data.n *= 2;
-            v.render();
-            localStorage.setItem("n",m.data.n);
-        })
-        v.el.on("click", "#divide2", (e) => {
-            m.data.n /= 2;
-            v.render();
-            localStorage.setItem("n",m.data.n);
-        })
-    }
+    events: {
+        "click #add1": "add",
+        "click #minus1": "minus",
+        "click #mul2": "mul",
+        "click #divide2": "divide",
+    },
+    autoBindEvents(){
+        for(let key in  c.events){
+            const value = c[c.events[key]]; // value是一个方法
+            const keys = key.split(" ");
+            v.el.on(keys[0],keys[1],value); // 绑定事件，但是没有重新渲染
+        }
+    },
+    add(){
+      m.data.n += 1;
+    },
+    minus(){
+        m.data.n -= 1;
+    },
+    mul(){
+        m.data.n *= 2;
+    },
+    divide(){
+        m.data.n /= 2;
+    },
 }
 
 export default c;

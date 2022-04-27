@@ -49,20 +49,6 @@ body > .page > section {
     height: 50vh;
     overflow: hidden;
 }
-#app1 > .wrapper{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin: 24px;
-}
-
-#app1 > .wrapper > .actions > button{
-    padding: 2px 8px;
-}
-
-#app1 > .wrapper > .output{
-    margin-right: 24px;
-}
 #app2{
     caret-color: transparent; /* caret 插入符号，光标 */
 }
@@ -130,4 +116,18 @@ body > .page > section {
     animation: colorTrans 2s infinite alternate forwards;
 }
 
+#app1 > .wrapper{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 24px;
+}
+
+#app1 > .wrapper > .actions > button{
+    padding: 2px 8px;
+}
+
+#app1 > .wrapper > .output{
+    margin-right: 24px;
+}
 /*# sourceMappingURL=index.5a4a2a84.css.map */

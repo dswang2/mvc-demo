@@ -455,51 +455,38 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"i87aF":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _resetCss = require("./reset.css");
 var _gloableCss = require("./gloable.css");
-var _app1Js = require("./app1.js");
+var _app1 = require("./app1");
+var _app1Default = parcelHelpers.interopDefault(_app1);
 var _app2Js = require("./app2.js");
 var _app3Js = require("./app3.js");
 var _app4Js = require("./app4.js");
+_app1Default.default.init("#app1");
 
-},{"./reset.css":"8lAmy","./gloable.css":"jmNI0","./app1.js":"hD5rx","./app2.js":"ecYzc","./app3.js":"55jpK","./app4.js":"fsfSg"}],"8lAmy":[function() {},{}],"jmNI0":[function() {},{}],"hD5rx":[function(require,module,exports) {
+},{"./reset.css":"8lAmy","./gloable.css":"jmNI0","./app2.js":"ecYzc","./app3.js":"55jpK","./app4.js":"fsfSg","./app1":"hD5rx","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"8lAmy":[function() {},{}],"jmNI0":[function() {},{}],"ecYzc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _app1Css = require("./app1.css");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-// 初始化HTML
-const html = `<section id="app1">\n        <div class="wrapper">\n            <div class="output">\n                <span id="number">1</span>\n            </div>\n            <div id="btnCal" class="actions">\n                <button id="add1">+1</button>\n                <button id="minus1">-1</button>\n                <button id="mul2">*2</button>\n                <button id="divide2">÷2</button>\n            </div>\n        </div>\n    </section>`;
+var _app2Css = require("./app2.css");
+const html = `<section id="app2">\n        <ol class="tab-bar">\n            <li>tab1</li>\n            <li>tab2</li>\n        </ol>\n        <ol class="tab-content">\n            <li>content1</li>\n            <li>content2</li>\n        </ol>\n    </section>`;
 const $element = _jqueryDefault.default(html);
 $element.appendTo(_jqueryDefault.default("body>.page"));
-// 重要元素
-const $btnCal = _jqueryDefault.default("#btnCal");
-const $output = _jqueryDefault.default("#number");
-// 初始化数据
-const n = localStorage.getItem("n") || 100;
-// 渲染数据
-$output.text(n);
-// 绑定事件
-$btnCal.on("click", (e)=>{
-    let n1 = parseInt($output.text());
-    switch(e.target.id){
-        case "add1":
-            n1 += 1;
-            break;
-        case "minus1":
-            n1 -= 1;
-            break;
-        case "mul2":
-            n1 *= 2;
-            break;
-        case "divide2":
-            n1 /= 2;
-            break;
-    }
-    $output.text(n1);
-    localStorage.setItem("n", $output.text());
+const $tabBar = _jqueryDefault.default("#app2 .tab-bar");
+const $tabContent = _jqueryDefault.default("#app2 .tab-content");
+const key = "app2.key";
+const index = localStorage.getItem(key) || 0;
+$tabBar.on("click", "li", (e)=>{
+    const $li = _jqueryDefault.default(e.currentTarget);
+    $li.addClass("selected").siblings().removeClass("selected");
+    const index1 = $li.index();
+    $tabContent.children().eq(index1).addClass("active").siblings().removeClass("active");
+    localStorage.setItem(key, index1);
 });
+$tabBar.children().eq(index).trigger("click");
 
-},{"./app1.css":"vx6G2","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"vx6G2":[function() {},{}],"igaHu":[function(require,module,exports) {
+},{"jquery":"igaHu","./app2.css":"8qkpE","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"igaHu":[function(require,module,exports) {
 /*!
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
@@ -7311,7 +7298,7 @@ $btnCal.on("click", (e)=>{
     return jQuery;
 });
 
-},{}],"hrokx":[function(require,module,exports) {
+},{}],"8qkpE":[function() {},{}],"hrokx":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -7343,28 +7330,7 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"ecYzc":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-var _jquery = require("jquery");
-var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
-var _app2Css = require("./app2.css");
-const html = `<section id="app2">\n        <ol class="tab-bar">\n            <li>tab1</li>\n            <li>tab2</li>\n        </ol>\n        <ol class="tab-content">\n            <li>content1</li>\n            <li>content2</li>\n        </ol>\n    </section>`;
-const $element = _jqueryDefault.default(html);
-$element.appendTo(_jqueryDefault.default("body>.page"));
-const $tabBar = _jqueryDefault.default("#app2 .tab-bar");
-const $tabContent = _jqueryDefault.default("#app2 .tab-content");
-const key = "app2.key";
-const index = localStorage.getItem(key) || 0;
-$tabBar.on("click", "li", (e)=>{
-    const $li = _jqueryDefault.default(e.currentTarget);
-    $li.addClass("selected").siblings().removeClass("selected");
-    const index1 = $li.index();
-    $tabContent.children().eq(index1).addClass("active").siblings().removeClass("active");
-    localStorage.setItem(key, index1);
-});
-$tabBar.children().eq(index).trigger("click");
-
-},{"jquery":"igaHu","./app2.css":"8qkpE","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"8qkpE":[function() {},{}],"55jpK":[function(require,module,exports) {
+},{}],"55jpK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _app3Css = require("./app3.css");
 var _jquery = require("jquery");
@@ -7409,6 +7375,67 @@ $circle.on("mouseenter", (e)=>{
     $circle.removeClass("active");
 });
 
-},{"./app4.css":"lzfqQ","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"lzfqQ":[function() {},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
+},{"./app4.css":"lzfqQ","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"lzfqQ":[function() {},{}],"hD5rx":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _app1Css = require("./app1.css");
+var _jquery = require("jquery");
+var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+// 视图相关都放到 m
+const m = {
+    data: {
+        n: parseInt(localStorage.getItem("n")) || 100
+    }
+};
+// 数据相关都放到 v
+const v = {
+    el: undefined,
+    html: `<div>\n        <div class="wrapper">\n            <div class="output">\n                <span id="number">{{n}}</span>\n            </div>\n            <div id="btnCal" class="actions">\n                <button id="add1">+1</button>\n                <button id="minus1">-1</button>\n                <button id="mul2">*2</button>\n                <button id="divide2">÷2</button>\n            </div>\n        </div>\n    </section>`,
+    init (container) {
+        v.el = _jqueryDefault.default(container);
+    },
+    render (n) {
+        // 子元素数
+        if (v.el.children.length !== 0) v.el.empty(); // 清空
+        _jqueryDefault.default(v.html.replace("{{n}}", n)).appendTo(_jqueryDefault.default(v.el));
+    }
+};
+// 其他的都放到 c
+const c = {
+    ui: undefined,
+    init (container) {
+        v.init(container);
+        v.render(m.data.n);
+        c.autoBindEvents();
+    },
+    events: {
+        "click #add1": "add",
+        "click #minus1": "minus",
+        "click #mul2": "mul",
+        "click #divide2": "divide"
+    },
+    autoBindEvents () {
+        for(let key in c.events){
+            const value = c[c.events[key]]; // value是一个方法
+            const keys = key.split(" ");
+            v.el.on(keys[0], keys[1], value); // 绑定事件，但是没有重新渲染
+        }
+    },
+    add () {
+        m.data.n += 1;
+    },
+    minus () {
+        m.data.n -= 1;
+    },
+    mul () {
+        m.data.n *= 2;
+    },
+    divide () {
+        m.data.n /= 2;
+    }
+};
+exports.default = c;
+
+},{"./app1.css":"vx6G2","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"vx6G2":[function() {},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
 
 //# sourceMappingURL=index.147655b4.js.map

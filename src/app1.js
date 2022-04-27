@@ -24,17 +24,15 @@ const v = {
         </div>
     </section>`,
     init(container){
-      v.container = $(container);
+      v.el = $(container);
       v.render();
     },
     render() {
-        if(v.el === undefined){
-            v.el = $(v.html.replace("{{n}}",m.data.n)).appendTo($(v.container));
-        }else {
-            const  newEle = $(v.html.replace("{{n}}",m.data.n));
-            v.el.replaceWith(newEle);
-            v.el = newEle;
+        // 子元素数
+        if(v.el.children.length !== 0){
+            v.el.empty(); // 清空
         }
+        $(v.html.replace("{{n}}",m.data.n)).appendTo($(v.el));
     }
 }
 // 其他的都放到 c
@@ -45,22 +43,22 @@ const c = {
         c.bindEvents();
     },
     bindEvents() {
-        v.container.on("click", "#add1", (e) => {
+        v.el.on("click", "#add1", (e) => {
             m.data.n += 1;
             v.render();
             localStorage.setItem("n",m.data.n);
         })
-        v.container.on("click", "#minus1", (e) => {
+        v.el.on("click", "#minus1", (e) => {
             m.data.n -= 1;
             v.render();
             localStorage.setItem("n",m.data.n);
         })
-        v.container.on("click", "#mul2", (e) => {
+        v.el.on("click", "#mul2", (e) => {
             m.data.n *= 2;
             v.render();
             localStorage.setItem("n",m.data.n);
         })
-        v.container.on("click", "#divide2", (e) => {
+        v.el.on("click", "#divide2", (e) => {
             m.data.n /= 2;
             v.render();
             localStorage.setItem("n",m.data.n);

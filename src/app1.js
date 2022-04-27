@@ -1,7 +1,15 @@
 import "./app1.css"
 import $ from "jquery"
-// 初始化HTML
-const html = `<section id="app1">
+
+// 视图相关都放到 m
+const m = {
+    data: {
+        n: localStorage.getItem("n") || 100
+    }
+}
+// 数据相关都放到 v
+const v = {
+    html: `<section id="app1">
         <div class="wrapper">
             <div class="output">
                 <span id="number">1</span>
@@ -13,33 +21,46 @@ const html = `<section id="app1">
                 <button id="divide2">÷2</button>
             </div>
         </div>
-    </section>`;
-const $element = $(html);
-$element.appendTo($("body>.page"));
-// 重要元素
-const $btnCal = $("#btnCal");
-const $output = $("#number");
-// 初始化数据
-const n = localStorage.getItem("n") || 100;
-// 渲染数据
-$output.text(n);
-// 绑定事件
-$btnCal.on("click",(e)=>{
-   let n = parseInt($output.text());
-   switch (e.target.id){
-      case "add1":
-         n += 1;
-         break
-      case "minus1":
-         n -= 1;
-         break
-      case "mul2":
-         n *= 2;
-         break
-      case "divide2":
-         n /= 2;
-         break
-   }
-   $output.text(n);
-   localStorage.setItem("n",$output.text());
-})
+    </section>`,
+    update() {
+        c.ui.output.text(m.data.n);
+    },
+    render() {
+        const $element = $(v.html).appendTo($("body>.page"));
+    }
+}
+// 其他的都放到 c
+const c = {
+    ui: undefined, // 不能一开始就初始化ui，因为v.render()没执行之前，是找不到这些元素的
+    init() {
+        c.ui = {
+            btnCal: $("#btnCal"),
+            output: $("#number"),
+        }
+        c.bindEvents();
+    },
+    bindEvents() {
+        c.ui.btnCal.on("click", (e) => {
+            let n = parseInt(c.ui.output.text());
+            switch (e.target.id) {
+                case "add1":
+                    n += 1;
+                    break
+                case "minus1":
+                    n -= 1;
+                    break
+                case "mul2":
+                    n *= 2;
+                    break
+                case "divide2":
+                    n /= 2;
+                    break
+            }
+            c.ui.output.text(n);
+            localStorage.setItem("n", c.ui.output.text());
+        })
+    }
+}
+
+v.render();
+c.init();

@@ -45,23 +45,25 @@ const c = {
         c.bindEvents();
     },
     bindEvents() {
-        v.container.on("click", (e) => {
-            switch (e.target.id) {
-                case "add1":
-                    m.data.n += 1;
-                    break
-                case "minus1":
-                    m.data.n -= 1;
-                    break
-                case "mul2":
-                    m.data.n *= 2;
-                    break
-                case "divide2":
-                    m.data.n /= 2;
-                    break
-            }
-            localStorage.setItem("n", m.data.n);
+        v.container.on("click", "#add1", (e) => {
+            m.data.n += 1;
             v.render();
+            localStorage.setItem("n",m.data.n);
+        })
+        v.container.on("click", "#minus1", (e) => {
+            m.data.n -= 1;
+            v.render();
+            localStorage.setItem("n",m.data.n);
+        })
+        v.container.on("click", "#mul2", (e) => {
+            m.data.n *= 2;
+            v.render();
+            localStorage.setItem("n",m.data.n);
+        })
+        v.container.on("click", "#divide2", (e) => {
+            m.data.n /= 2;
+            v.render();
+            localStorage.setItem("n",m.data.n);
         })
     }
 }

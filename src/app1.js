@@ -1,6 +1,6 @@
 import "./app1.css"
 import $ from "jquery"
-
+// 初始化HTML
 const html = `<section id="app1">
         <div class="wrapper">
             <div class="output">
@@ -16,16 +16,15 @@ const html = `<section id="app1">
     </section>`;
 const $element = $(html);
 $element.appendTo($("body>.page"));
-
+// 重要元素
 const $btnCal = $("#btnCal");
 const $output = $("#number");
-
-$output.text(localStorage.getItem("n") || 100);
-
-// 事件捕获
+// 初始化数据
+const n = localStorage.getItem("n") || 100;
+// 渲染数据
+$output.text(n);
+// 绑定事件
 $btnCal.on("click",(e)=>{
-   console.log(e.currentTarget); // 父控件
-   console.log(e.target); // 子控件，具体点击的子控件
    let n = parseInt($output.text());
    switch (e.target.id){
       case "add1":

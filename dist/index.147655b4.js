@@ -467,32 +467,35 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _app1Css = require("./app1.css");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+// 初始化HTML
 const html = `<section id="app1">\n        <div class="wrapper">\n            <div class="output">\n                <span id="number">1</span>\n            </div>\n            <div id="btnCal" class="actions">\n                <button id="add1">+1</button>\n                <button id="minus1">-1</button>\n                <button id="mul2">*2</button>\n                <button id="divide2">÷2</button>\n            </div>\n        </div>\n    </section>`;
 const $element = _jqueryDefault.default(html);
 $element.appendTo(_jqueryDefault.default("body>.page"));
+// 重要元素
 const $btnCal = _jqueryDefault.default("#btnCal");
 const $output = _jqueryDefault.default("#number");
-$output.text(localStorage.getItem("n") || 100);
-// 事件捕获
+// 初始化数据
+const n = localStorage.getItem("n") || 100;
+// 渲染数据
+$output.text(n);
+// 绑定事件
 $btnCal.on("click", (e)=>{
-    console.log(e.currentTarget); // 父控件
-    console.log(e.target); // 子控件，具体点击的子控件
-    let n = parseInt($output.text());
+    let n1 = parseInt($output.text());
     switch(e.target.id){
         case "add1":
-            n += 1;
+            n1 += 1;
             break;
         case "minus1":
-            n -= 1;
+            n1 -= 1;
             break;
         case "mul2":
-            n *= 2;
+            n1 *= 2;
             break;
         case "divide2":
-            n /= 2;
+            n1 /= 2;
             break;
     }
-    $output.text(n);
+    $output.text(n1);
     localStorage.setItem("n", $output.text());
 });
 

@@ -23,9 +23,6 @@ const v = {
             </div>
         </div>
     </section>`,
-    update() {
-        c.ui.output.text(m.data.n);
-    },
     init(container){
       v.container = $(container);
       v.render();
@@ -45,10 +42,6 @@ const c = {
     ui: undefined, // 不能一开始就初始化ui，因为v.render()没执行之前，是找不到这些元素的
     init(container) {
         v.init(container);
-        c.ui = {
-            btnCal: $("#btnCal"),
-            output: $("#number"),
-        };
         c.bindEvents();
     },
     bindEvents() {

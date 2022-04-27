@@ -467,6 +467,9 @@ var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _app1Css = require("./app1.css");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+const html = `<section id="app1">\n        <div class="wrapper">\n            <div class="output">\n                <span id="number">1</span>\n            </div>\n            <div id="btnCal" class="actions">\n                <button id="add1">+1</button>\n                <button id="minus1">-1</button>\n                <button id="mul2">*2</button>\n                <button id="divide2">÷2</button>\n            </div>\n        </div>\n    </section>`;
+const $element = _jqueryDefault.default(html);
+$element.appendTo(_jqueryDefault.default("body>.page"));
 const $btnCal = _jqueryDefault.default("#btnCal");
 const $output = _jqueryDefault.default("#number");
 $output.text(localStorage.getItem("n") || 100);
@@ -493,7 +496,7 @@ $btnCal.on("click", (e)=>{
     localStorage.setItem("n", $output.text());
 });
 
-},{"jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx","./app1.css":"vx6G2"}],"igaHu":[function(require,module,exports) {
+},{"./app1.css":"vx6G2","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"vx6G2":[function() {},{}],"igaHu":[function(require,module,exports) {
 /*!
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
@@ -7337,35 +7340,65 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"vx6G2":[function() {},{}],"ecYzc":[function(require,module,exports) {
+},{}],"ecYzc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
 var _app2Css = require("./app2.css");
+const html = `<section id="app2">\n        <ol class="tab-bar">\n            <li>tab1</li>\n            <li>tab2</li>\n        </ol>\n        <ol class="tab-content">\n            <li>content1</li>\n            <li>content2</li>\n        </ol>\n    </section>`;
+const $element = _jqueryDefault.default(html);
+$element.appendTo(_jqueryDefault.default("body>.page"));
 const $tabBar = _jqueryDefault.default("#app2 .tab-bar");
 const $tabContent = _jqueryDefault.default("#app2 .tab-content");
+const key = "app2.key";
+const index = localStorage.getItem(key) || 0;
 $tabBar.on("click", "li", (e)=>{
     const $li = _jqueryDefault.default(e.currentTarget);
     $li.addClass("selected").siblings().removeClass("selected");
-    const index = $li.index();
-    $tabContent.children().eq(index).addClass("active").siblings().removeClass("active");
+    const index1 = $li.index();
+    $tabContent.children().eq(index1).addClass("active").siblings().removeClass("active");
+    localStorage.setItem(key, index1);
 });
+$tabBar.children().eq(index).trigger("click");
 
-},{"jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx","./app2.css":"8qkpE"}],"8qkpE":[function() {},{}],"55jpK":[function(require,module,exports) {
+},{"jquery":"igaHu","./app2.css":"8qkpE","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"8qkpE":[function() {},{}],"55jpK":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _app3Css = require("./app3.css");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+var _com = require("./com");
+const html = `<section id="app3">\n        <div id="book"></div>\n    </section>`;
+const $element = _jqueryDefault.default(html);
+$element.appendTo(_jqueryDefault.default("body>.page"));
+const key = "app3.active";
 const $book = _jqueryDefault.default("#app3 > #book");
+const active = localStorage.getItem(key) === _com.YESORNO.YES;
+$book.toggleClass("active", active);
 $book.on("click", (e)=>{
     $book.toggleClass("active");
+    localStorage.setItem(key, $book.hasClass("active") ? _com.YESORNO.YES : _com.YESORNO.NO);
 });
 
-},{"./app3.css":"5NMR4","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"5NMR4":[function() {},{}],"fsfSg":[function(require,module,exports) {
+},{"./app3.css":"5NMR4","jquery":"igaHu","./com":"9b50W","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"5NMR4":[function() {},{}],"9b50W":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "YESORNO", ()=>YESORNO
+);
+var YESORNO;
+(function(YESORNO1) {
+    YESORNO1["YES"] = "YES";
+    YESORNO1["NO"] = "NO";
+})(YESORNO || (YESORNO = {
+}));
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"fsfSg":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 var _app4Css = require("./app4.css");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+const html = `<section id="app4">\n        <div id="circle"></div>\n    </section>`;
+const $element = _jqueryDefault.default(html);
+$element.appendTo(_jqueryDefault.default("body>.page"));
 const $circle = _jqueryDefault.default("#app4 > #circle");
 $circle.on("mouseenter", (e)=>{
     $circle.addClass("active");
@@ -7373,6 +7406,6 @@ $circle.on("mouseenter", (e)=>{
     $circle.removeClass("active");
 });
 
-},{"jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx","./app4.css":"lzfqQ"}],"lzfqQ":[function() {},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
+},{"./app4.css":"lzfqQ","jquery":"igaHu","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"lzfqQ":[function() {},{}]},["aFPtk","i87aF"], "i87aF", "parcelRequire5167")
 
 //# sourceMappingURL=index.147655b4.js.map

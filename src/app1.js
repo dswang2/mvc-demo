@@ -12,7 +12,7 @@ const v = {
     html: `<section id="app1">
         <div class="wrapper">
             <div class="output">
-                <span id="number">1</span>
+                <span id="number">{{n}}</span>
             </div>
             <div id="btnCal" class="actions">
                 <button id="add1">+1</button>
@@ -26,7 +26,7 @@ const v = {
         c.ui.output.text(m.data.n);
     },
     render() {
-        const $element = $(v.html).appendTo($("body>.page"));
+        const $element = $(v.html.replace("{{n}}",m.data.n)).appendTo($("body>.page"));
     }
 }
 // 其他的都放到 c

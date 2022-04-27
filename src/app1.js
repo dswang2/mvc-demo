@@ -4,11 +4,12 @@ import $ from "jquery"
 // 视图相关都放到 m
 const m = {
     data: {
-        n: localStorage.getItem("n") || 100
+        n: parseInt(localStorage.getItem("n")) || 100
     }
 }
 // 数据相关都放到 v
 const v = {
+    el: undefined,
     html: `<section id="app1">
         <div class="wrapper">
             <div class="output">
@@ -26,7 +27,13 @@ const v = {
         c.ui.output.text(m.data.n);
     },
     render() {
-        const $element = $(v.html.replace("{{n}}",m.data.n)).appendTo($("body>.page"));
+        if(v.el === undefined){
+            v.el = $(v.html.replace("{{n}}",m.data.n)).appendTo($("body>.page"));
+        }else {
+            const  newEle = $(v.html.replace("{{n}}",m.data.n));
+            v.el.replaceWith(newEle);
+            v.el = newEle;
+        }
     }
 }
 // 其他的都放到 c
@@ -41,23 +48,22 @@ const c = {
     },
     bindEvents() {
         c.ui.btnCal.on("click", (e) => {
-            let n = parseInt(c.ui.output.text());
             switch (e.target.id) {
                 case "add1":
-                    n += 1;
+                    m.data.n += 1;
                     break
                 case "minus1":
-                    n -= 1;
+                    m.data.n -= 1;
                     break
                 case "mul2":
-                    n *= 2;
+                    m.data.n *= 2;
                     break
                 case "divide2":
-                    n /= 2;
+                    m.data.n /= 2;
                     break
             }
-            c.ui.output.text(n);
-            localStorage.setItem("n", c.ui.output.text());
+            localStorage.setItem("n", m.data.n);
+            v.render();
         })
     }
 }

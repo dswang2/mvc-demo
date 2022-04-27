@@ -10,7 +10,7 @@ const m = {
 // 数据相关都放到 v
 const v = {
     el: undefined,
-    html: `<section id="app1">
+    html: `<div>
         <div class="wrapper">
             <div class="output">
                 <span id="number">{{n}}</span>
@@ -26,9 +26,13 @@ const v = {
     update() {
         c.ui.output.text(m.data.n);
     },
+    init(container){
+      v.container = $(container);
+      v.render();
+    },
     render() {
         if(v.el === undefined){
-            v.el = $(v.html.replace("{{n}}",m.data.n)).appendTo($("body>.page"));
+            v.el = $(v.html.replace("{{n}}",m.data.n)).appendTo($(v.container));
         }else {
             const  newEle = $(v.html.replace("{{n}}",m.data.n));
             v.el.replaceWith(newEle);
@@ -39,15 +43,16 @@ const v = {
 // 其他的都放到 c
 const c = {
     ui: undefined, // 不能一开始就初始化ui，因为v.render()没执行之前，是找不到这些元素的
-    init() {
+    init(container) {
+        v.init(container);
         c.ui = {
             btnCal: $("#btnCal"),
             output: $("#number"),
-        }
+        };
         c.bindEvents();
     },
     bindEvents() {
-        c.ui.btnCal.on("click", (e) => {
+        v.container.on("click", (e) => {
             switch (e.target.id) {
                 case "add1":
                     m.data.n += 1;
@@ -68,5 +73,4 @@ const c = {
     }
 }
 
-v.render();
-c.init();
+export default c;

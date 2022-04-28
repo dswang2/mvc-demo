@@ -461,30 +461,77 @@ var _gloableCss = require("./gloable.css");
 var _app1 = require("./app1");
 var _app1Default = parcelHelpers.interopDefault(_app1);
 var _app2Js = require("./app2.js");
+var _app2JsDefault = parcelHelpers.interopDefault(_app2Js);
 var _app3Js = require("./app3.js");
 var _app4Js = require("./app4.js");
 _app1Default.default.init("#app1");
+_app2JsDefault.default.init("#app2");
 
 },{"./reset.css":"8lAmy","./gloable.css":"jmNI0","./app2.js":"ecYzc","./app3.js":"55jpK","./app4.js":"fsfSg","./app1":"hD5rx","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"8lAmy":[function() {},{}],"jmNI0":[function() {},{}],"ecYzc":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
 var _app2Css = require("./app2.css");
-const html = `<section id="app2">\n        <ol class="tab-bar">\n            <li>tab1</li>\n            <li>tab2</li>\n        </ol>\n        <ol class="tab-content">\n            <li>content1</li>\n            <li>content2</li>\n        </ol>\n    </section>`;
-const $element = _jqueryDefault.default(html);
-$element.appendTo(_jqueryDefault.default("body>.page"));
-const $tabBar = _jqueryDefault.default("#app2 .tab-bar");
-const $tabContent = _jqueryDefault.default("#app2 .tab-content");
-const key = "app2.key";
-const index = localStorage.getItem(key) || 0;
-$tabBar.on("click", "li", (e)=>{
-    const $li = _jqueryDefault.default(e.currentTarget);
-    $li.addClass("selected").siblings().removeClass("selected");
-    const index1 = $li.index();
-    $tabContent.children().eq(index1).addClass("active").siblings().removeClass("active");
-    localStorage.setItem(key, index1);
-});
-$tabBar.children().eq(index).trigger("click");
+const eventBus = _jqueryDefault.default(window);
+// 视图相关都放到 m
+const m = {
+    data: {
+        index: parseInt(localStorage.getItem("app2.key")) || 0
+    },
+    create () {
+    },
+    delete () {
+    },
+    update (data) {
+        Object.assign(m.data, data);
+        eventBus.trigger("m.data.update");
+    },
+    get () {
+    }
+};
+// 数据相关都放到 v
+const v = {
+    el: undefined,
+    html (index) {
+        return `<section id="app2">\n        <ol class="tab-bar">\n            <li class="${index === 0 ? 'selected' : ''}" data-index="0">tab1</li>\n            <li class="${index === 1 ? 'selected' : ''}" data-index="1">tab2</li>\n        </ol>\n        <ol class="tab-content">\n            <li class="${index === 0 ? 'active' : ''}" >content1</li>\n            <li class="${index === 1 ? 'active' : ''}" >content2</li>\n        </ol>\n    </section>`;
+    },
+    init (container) {
+        v.el = _jqueryDefault.default(container);
+    },
+    render (index) {
+        if (v.el.children.length !== 0) v.el.empty(); // 清空
+        _jqueryDefault.default(v.html(index)).appendTo(_jqueryDefault.default(v.el));
+    }
+};
+// 其他的都放到 c
+const c = {
+    ui: undefined,
+    init (container) {
+        v.init(container);
+        v.render(m.data.index);
+        c.autoBindEvents();
+        eventBus.on("m.data.update", ()=>{
+            v.render(m.data.index);
+        });
+    },
+    events: {
+        "click .tab-bar>li": "switch"
+    },
+    autoBindEvents () {
+        for(let key in c.events){
+            const value = c[c.events[key]]; // value是一个方法
+            const keys = key.split(" ");
+            v.el.on(keys[0], keys[1], value); // 绑定事件，但是没有重新渲染
+        }
+    },
+    switch (e) {
+        m.update({
+            index: parseInt(e.currentTarget.dataset.index)
+        });
+    }
+};
+exports.default = c;
 
 },{"jquery":"igaHu","./app2.css":"8qkpE","@parcel/transformer-js/src/esmodule-helpers.js":"hrokx"}],"igaHu":[function(require,module,exports) {
 /*!
@@ -7381,10 +7428,22 @@ parcelHelpers.defineInteropFlag(exports);
 var _app1Css = require("./app1.css");
 var _jquery = require("jquery");
 var _jqueryDefault = parcelHelpers.interopDefault(_jquery);
+const eventBus = _jqueryDefault.default(window);
 // 视图相关都放到 m
 const m = {
     data: {
         n: parseInt(localStorage.getItem("n")) || 100
+    },
+    create () {
+    },
+    delete () {
+    },
+    update (data) {
+        Object.assign(m.data, data);
+        eventBus.trigger("m.data.update");
+        localStorage.setItem("n", m.data.n);
+    },
+    get () {
     }
 };
 // 数据相关都放到 v
@@ -7407,6 +7466,9 @@ const c = {
         v.init(container);
         v.render(m.data.n);
         c.autoBindEvents();
+        eventBus.on("m.data.update", ()=>{
+            v.render(m.data.n);
+        });
     },
     events: {
         "click #add1": "add",
@@ -7422,16 +7484,24 @@ const c = {
         }
     },
     add () {
-        m.data.n += 1;
+        m.update({
+            n: m.data.n + 1
+        });
     },
     minus () {
-        m.data.n -= 1;
+        m.update({
+            n: m.data.n - 1
+        });
     },
     mul () {
-        m.data.n *= 2;
+        m.update({
+            n: m.data.n * 2
+        });
     },
     divide () {
-        m.data.n /= 2;
+        m.update({
+            n: m.data.n / 2
+        });
     }
 };
 exports.default = c;

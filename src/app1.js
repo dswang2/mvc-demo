@@ -1,11 +1,22 @@
 import "./app1.css"
 import $ from "jquery"
 
+const eventBus = $(window);
 // 视图相关都放到 m
 const m = {
     data: {
         n: parseInt(localStorage.getItem("n")) || 100
-    }
+    },
+    create() {
+    },
+    delete() {
+    },
+    update(data) {
+        Object.assign(m.data, data);
+        eventBus.trigger("m.data.update");
+    },
+    get() {
+    },
 }
 // 数据相关都放到 v
 const v = {
@@ -23,12 +34,12 @@ const v = {
             </div>
         </div>
     </section>`,
-    init(container){
-      v.el = $(container);
+    init(container) {
+        v.el = $(container);
     },
     render(n) {
         // 子元素数
-        if(v.el.children.length !== 0){
+        if (v.el.children.length !== 0) {
             v.el.empty(); // 清空
         }
         $(v.html.replace("{{n}}", n)).appendTo($(v.el));
@@ -41,6 +52,9 @@ const c = {
         v.init(container);
         v.render(m.data.n);
         c.autoBindEvents();
+        eventBus.on("m.data.update", () => {
+            v.render(m.data.n);
+        })
     },
     events: {
         "click #add1": "add",
@@ -48,24 +62,24 @@ const c = {
         "click #mul2": "mul",
         "click #divide2": "divide",
     },
-    autoBindEvents(){
-        for(let key in  c.events){
+    autoBindEvents() {
+        for (let key in c.events) {
             const value = c[c.events[key]]; // value是一个方法
             const keys = key.split(" ");
-            v.el.on(keys[0],keys[1],value); // 绑定事件，但是没有重新渲染
+            v.el.on(keys[0], keys[1], value); // 绑定事件，但是没有重新渲染
         }
     },
-    add(){
-      m.data.n += 1;
+    add() {
+        m.update({n: m.data.n + 1});
     },
-    minus(){
-        m.data.n -= 1;
+    minus() {
+        m.update({n: m.data.n - 1});
     },
-    mul(){
-        m.data.n *= 2;
+    mul() {
+        m.update({n: m.data.n * 2});
     },
-    divide(){
-        m.data.n /= 2;
+    divide() {
+        m.update({n: m.data.n / 2});
     },
 }
 

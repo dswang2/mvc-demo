@@ -1,24 +1,19 @@
 import "./app1.css"
 import $ from "jquery"
+import Model from "./base/Model";
 
 const eventBus = $(window);
 // 视图相关都放到 m
-const m = {
+const m = new Model({
     data: {
         n: parseInt(localStorage.getItem("n")) || 100
-    },
-    create() {
-    },
-    delete() {
     },
     update(data) {
         Object.assign(m.data, data);
         eventBus.trigger("m.data.update");
         localStorage.setItem("n", m.data.n);
-    },
-    get() {
-    },
-}
+    }
+});
 // 数据相关都放到 v
 const v = {
     el: undefined,

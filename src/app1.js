@@ -4,7 +4,6 @@ import Model from "./base/Model";
 import View from "./base/View";
 import EventBus from "./base/EventBus";
 
-const eventBus = new EventBus();
 // 视图相关都放到 m
 const m = new Model({
     data: {
@@ -12,7 +11,7 @@ const m = new Model({
     },
     update(data) {
         Object.assign(m.data, data);
-        eventBus.trigger("m.data.update");
+        m.trigger("m.data.update");
         localStorage.setItem("n", m.data.n);
     }
 });
@@ -43,7 +42,6 @@ function initView(container){
             }
             $(this.html.replace("{{n}}", data.n)).appendTo($(this.el));
         },
-        eventBus: eventBus,
         events: {
             "click #add1": "add",
             "click #minus1": "minus",

@@ -2,8 +2,9 @@ import "./app1.css"
 import $ from "jquery"
 import Model from "./base/Model";
 import View from "./base/View";
+import EventBus from "./base/EventBus";
 
-const eventBus = $(window);
+const eventBus = new EventBus();
 // 视图相关都放到 m
 const m = new Model({
     data: {

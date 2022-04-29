@@ -2,9 +2,9 @@ import $ from "jquery"
 import "./app2.css"
 import Model from "./base/Model";
 import View from "./base/View";
+import EventBus from "./base/EventBus";
 
-const eventBus = $(window);
-console.log(eventBus);
+const eventBus = new EventBus();
 // 视图相关都放到 m
 const m = new Model({
     data: {
@@ -13,6 +13,7 @@ const m = new Model({
     update(data) {
         Object.assign(m.data, data);
         eventBus.trigger("m.data.update");
+        localStorage.setItem("app2.key", m.data.index);
     }
 })
 // 其他的都放到 v c

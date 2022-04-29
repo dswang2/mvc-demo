@@ -14,8 +14,8 @@ const m = new Model({
         localStorage.setItem("n", m.data.n);
     }
 });
-// 数据相关都放到 v
-const v = {
+// 其他的都放到 v c
+const view = {
     el: undefined,
     html: `<div>
         <div class="wrapper">
@@ -30,27 +30,21 @@ const v = {
             </div>
         </div>
     </section>`,
+    ui: undefined, // 不能一开始就初始化ui，因为c.render()没执行之前，是找不到这些元素的
     init(container) {
-        v.el = $(container);
+        view.el = $(container);
+        view.render(m.data.n);
+        view.autoBindEvents();
+        eventBus.on("m.data.update", () => {
+            view.render(m.data.n);
+        })
     },
     render(n) {
         // 子元素数
-        if (v.el.children.length !== 0) {
-            v.el.empty(); // 清空
+        if (view.el.children.length !== 0) {
+            view.el.empty(); // 清空
         }
-        $(v.html.replace("{{n}}", n)).appendTo($(v.el));
-    }
-}
-// 其他的都放到 c
-const c = {
-    ui: undefined, // 不能一开始就初始化ui，因为v.render()没执行之前，是找不到这些元素的
-    init(container) {
-        v.init(container);
-        v.render(m.data.n);
-        c.autoBindEvents();
-        eventBus.on("m.data.update", () => {
-            v.render(m.data.n);
-        })
+        $(view.html.replace("{{n}}", n)).appendTo($(view.el));
     },
     events: {
         "click #add1": "add",
@@ -59,10 +53,10 @@ const c = {
         "click #divide2": "divide",
     },
     autoBindEvents() {
-        for (let key in c.events) {
-            const value = c[c.events[key]]; // value是一个方法
+        for (let key in view.events) {
+            const value = view[view.events[key]]; // value是一个方法
             const keys = key.split(" ");
-            v.el.on(keys[0], keys[1], value); // 绑定事件，但是没有重新渲染
+            view.el.on(keys[0], keys[1], value); // 绑定事件，但是没有重新渲染
         }
     },
     add() {
@@ -79,4 +73,4 @@ const c = {
     },
 }
 
-export default c;
+export default view;

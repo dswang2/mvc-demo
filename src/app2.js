@@ -2,7 +2,6 @@ import $ from "jquery"
 import "./app2.css"
 import Model from "./base/Model";
 import View from "./base/View";
-import EventBus from "./base/EventBus";
 
 // 视图相关都放到 m
 const m = new Model({
@@ -17,10 +16,10 @@ const m = new Model({
 })
 // 其他的都放到 v c
 let view = null;
-function initView(container){
+function initView(el){
     view = new View({
         data: m.data,
-        el: container,
+        el: el,
         html(index) {
             return `<section id="app2">
                         <ol class="tab-bar">

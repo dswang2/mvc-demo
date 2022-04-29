@@ -5,7 +5,6 @@ class View extends EventBus{
     constructor(options) {
         super();
         Object.assign(this,options);
-        debugger;
         this.el = $(this.el);
         this.render(this.data);
         this.autoBindEvents();
